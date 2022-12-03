@@ -1,1 +1,0 @@
-{"version":3,"file":"index.js","sourceRoot":"","sources":["index.ts"],"names":[],"mappings":"AAAA,oBAAoB;AACpB,OAAO,EAAE,OAAO,IAAI,OAAO,EAAE,MAAM,aAAa,CAAC","sourcesContent":["// packages/index.ts\r\nexport { default as default } from './ChartCore';\r\nexport type { ChartProps, EChartsOption } from './ChartCore';\r\n"]}

@@ -1,1 +1,0 @@
-{"version":3,"file":"Empty.js","sourceRoot":"","sources":["Empty.tsx"],"names":[],"mappings":";AAEA,IAAM,KAAK,GAAa;IACpB,OAAO,gCAAc,CAAA;AACzB,CAAC,CAAA;AAED,eAAe,KAAK,CAAC","sourcesContent":["import React from 'react';\n\nconst Empty: React.FC = () => {\n    return <div>xxx</div>\n}\n\nexport default Empty;"]}

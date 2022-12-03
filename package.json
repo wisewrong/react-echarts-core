@@ -1,6 +1,6 @@
 {
   "name": "react-echarts-core",
-  "version": "0.1.0-beta",
+  "version": "0.1.0",
   "type": "module",
   "author": "wisewrong",
   "license": "MIT",
@@ -10,6 +10,12 @@
   "main": "./lib/react-echarts-core.umd.cjs",
   "module": "./lib/react-echarts-core.js",
   "typings": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./lib/react-echarts-core.js",
+      "require": "./lib/react-echarts-core.umd.cjs"
+    }
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
