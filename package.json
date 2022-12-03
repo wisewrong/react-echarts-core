@@ -1,0 +1,65 @@
+{
+  "name": "react-echarts-core",
+  "version": "0.1.0-beta",
+  "type": "module",
+  "author": "wisewrong",
+  "license": "MIT",
+  "files": [
+    "lib"
+  ],
+  "main": "./lib/react-echarts-core.umd.cjs",
+  "module": "./lib/react-echarts-core.js",
+  "typings": "./lib/index.d.ts",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "homepage": "https://github.com/wisewrong/react-echarts-core#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wisewrong/react-echarts-core.git"
+  },
+  "keywords": [
+    "react",
+    "echarts",
+    "react-component",
+    "react-echarts"
+  ],
+  "bugs": {
+    "url": "https://github.com/wisewrong/react-echarts-core/issues"
+  },
+  "dependencies": {
+    "lodash-es": "^4.17.21",
+    "resize-observer-polyfill": "^1.5.1"
+  },
+  "peerDependencies": {
+    "echarts": ">=5.0.1",
+    "react": ">=16.9.0",
+    "react-dom": ">=16.9.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^8.5.0",
+    "@types/lodash-es": "^4.17.6",
+    "@types/node": "^18.7.15",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.33.0",
+    "@typescript-eslint/parser": "^4.33.0",
+    "@vitejs/plugin-react": "^2.0.0",
+    "echarts": "^5.2.1",
+    "eslint": "^7.25.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-babel": "^5.3.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-react": "^7.23.2",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0",
+    "typescript": "^4.7.4",
+    "vite": "^3.x"
+  }
+}
