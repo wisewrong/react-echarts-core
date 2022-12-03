@@ -1,7 +1,7 @@
 import React, { useRef, useLayoutEffect, useCallback, useMemo } from 'react';
 import ResizeObserver from 'resize-observer-polyfill';
-import Empty from './Empty';
-import { debounce, isFunction } from 'lodash-es';
+import debounce from 'lodash-es/debounce';
+import isFunction from 'lodash-es/isFunction';
 import * as echarts from 'echarts/core';
 import {
   TooltipComponent,
@@ -13,8 +13,11 @@ import { PieChart, LineChart, BarChart } from 'echarts/charts';
 import type { EChartsOption } from 'echarts';
 import { LabelLayout, UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
+import renderStyle from '../renderStyle';
 import { THEME_NAME } from './theme';
-import './index.css';
+import { charCanvas, chartWapper } from './style';
+import Empty from './Empty';
+
 
 export type { EChartsOption } from 'echarts';
 
@@ -90,7 +93,7 @@ const ChartCore: React.FC<ChartProps> = ({
   const removeResizeHandler = useCallback(() => {
     try {
       observerRef.current?.unobserve(chartWrapperRef.current as Element);
-    } catch {}
+    } catch { }
     observerRef.current = undefined;
   }, []);
 
@@ -143,12 +146,12 @@ const ChartCore: React.FC<ChartProps> = ({
 
   return (
     <div
-      className={`chart-wapper ${className}`}
+      className={`${renderStyle(chartWapper)} ${className || ''}`}
       ref={chartWrapperRef}
       style={style}
     >
       {!empty ? (
-        <div className={'chart-canvas'} ref={chartRef}></div>
+        <div className={renderStyle(charCanvas)} ref={chartRef}></div>
       ) : (
         <Empty />
       )}
