@@ -14,10 +14,9 @@ import type { EChartsOption } from 'echarts';
 import { LabelLayout, UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
 import renderStyle from '../renderStyle';
-import { THEME_NAME } from './theme';
 import { charCanvas, chartWapper } from './style';
+import { THEME_NAME } from './theme';
 import Empty from './Empty';
-
 
 export type { EChartsOption } from 'echarts';
 
@@ -34,6 +33,8 @@ export interface ChartProps {
   empty?: boolean;
   /** 图表初始化成功后的回调, 提供 echarts 实例 */
   onChartReady?: (ref: echarts.ECharts) => void;
+  /** 自定义空状态 */
+  renderEmpty?: () => React.ReactNode;
 }
 
 echarts.use([
@@ -68,6 +69,7 @@ const ChartCore: React.FC<ChartProps> = ({
   clear,
   theme,
   onChartReady,
+  renderEmpty,
 }) => {
   // echarts 实例
   const $chart = useRef<echarts.ECharts>();
@@ -144,6 +146,8 @@ const ChartCore: React.FC<ChartProps> = ({
     }
   }, [empty, dispose, initChart, updateChart]);
 
+  const emptyComponent = useMemo(() => isFunction(renderEmpty) ? renderEmpty() : <Empty />, []);
+
   return (
     <div
       className={`${renderStyle(chartWapper)} ${className || ''}`}
@@ -151,9 +155,9 @@ const ChartCore: React.FC<ChartProps> = ({
       style={style}
     >
       {!empty ? (
-        <div className={renderStyle(charCanvas)} ref={chartRef}></div>
+        <div className={renderStyle([charCanvas])} ref={chartRef}></div>
       ) : (
-        <Empty />
+        emptyComponent
       )}
     </div>
   );

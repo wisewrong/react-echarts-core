@@ -9,6 +9,9 @@ function resolve(str: string) {
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  server: {
+    port: 8000,
+  },
   plugins: [
     react(),
     typescript({
@@ -20,9 +23,6 @@ export default defineConfig({
       allowSyntheticDefaultImports: true,
     }),
   ],
-  server: {
-    port: 8000,
-  },
   build: {
     outDir: 'lib',
     // 防止 vite 将 rgba() 颜色转化为 #RGBA 十六进制
@@ -34,7 +34,7 @@ export default defineConfig({
     },
     rollupOptions: {
       // 确保外部化处理那些你不想打包进库的依赖
-      external: ['react', 'react-dom'],
+      external: ['react', 'react-dom', 'echarts'],
       output: {
         // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
         globals: {

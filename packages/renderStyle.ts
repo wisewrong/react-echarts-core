@@ -1,6 +1,5 @@
 import type { CSSProperties } from 'react';
 import kebabCase from 'lodash-es/kebabCase';
-import isArray from 'lodash-es/isArray';
 
 export interface StyleItem {
   className: string,
@@ -37,12 +36,12 @@ function renderStyleItem(style: StyleItem): string {
 }
 
 /**
- * CSS in Js 方案, 避免在引入 react-echarts-core 之后还要引入 react-echarts-core.css
- * 接受包含 className 及对应 style 的对象
+ * CSS in Js 方案, 避免在引入 package 之后还要引入 package.css
+ * 接受包含 className 及对应 style 的对象 StyleItem
  * 以 className 作为 id 在 <head> 下创建 <style> 标签
  * 函数最终返回 className
  */
 export default function renderStyle(styles: StyleItem | StyleItem[]) {
-  const v: StyleItem[] = isArray(styles) ? styles : [styles];
+  const v: StyleItem[] = Array.isArray(styles) ? styles : [styles];
   return v.map(renderStyleItem).join(' ');
 }
