@@ -36,7 +36,7 @@ import ChartCore from 'react-echarts-core';
 import type { EChartsOption } from 'react-echarts-core';
 
 const Demo = () => {
-  // https://echarts.apache.org/examples/zh/editor.html?c=bar-background
+  // https://echarts.apache.org/examples/en/editor.html?c=bar-background
   const option: EChartsOption = {
     xAxis: {
       type: 'category',
@@ -78,5 +78,5 @@ const Demo = () => {
 | theme        | [ECharts Theme](https://echarts.apache.org/en/api.html#echarts.init) | string \| Record<string, any>  | 'charts-core-theme' |
 | clear        | [Whether to clear the canvas when chart update](https://echarts.apache.org/en/api.html#echartsInstance.clear) | boolean                        | false               |
 | empty        | Whether to display empty state                               | boolean                        | false               |
-| renderEmpty  | Render the custom empty component when `empty` is `true`     | () => React.ReactNode          | 内置 `Empty` 组件   |
+| renderEmpty  | Render the custom empty component when `empty` is `true`     | () => React.ReactNode          | Render the built-in `Empty` component   |
 | onChartReady | The callback after the chart is initialized successfully, providing echarts instance | (ref: echarts.ECharts) => void | -                   |
