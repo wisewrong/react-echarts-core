@@ -38,7 +38,7 @@
     "url": "https://github.com/wisewrong/react-echarts-core/issues"
   },
   "dependencies": {
-    "@juggle/resize-observer": "^3.4.0",
+    "ahooks": "^3.7.2",
     "lodash-es": "^4.17.21"
   },
   "peerDependencies": {

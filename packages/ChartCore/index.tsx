@@ -1,5 +1,4 @@
 import React, { useRef, useLayoutEffect, useCallback, useMemo } from 'react';
-import { ResizeObserver } from '@juggle/resize-observer';
 import debounce from 'lodash-es/debounce';
 import isFunction from 'lodash-es/isFunction';
 import * as echarts from 'echarts/core';
@@ -14,9 +13,10 @@ import type { EChartsOption } from 'echarts';
 import { LabelLayout, UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
 import renderStyle from '../renderStyle';
+import Empty from './components/Empty';
+import useSize from './hooks/useSize';
 import { charCanvas, chartWapper } from './style';
 import { THEME_NAME } from './theme';
-import Empty from './Empty';
 
 export type { EChartsOption } from 'echarts';
 
@@ -73,9 +73,10 @@ const ChartCore: React.FC<ChartProps> = ({
 }) => {
   // echarts 实例
   const $chart = useRef<echarts.ECharts>();
-  const observerRef = useRef<ResizeObserver>();
   const chartRef = useRef<HTMLDivElement>(null);
   const chartWrapperRef = useRef<HTMLDivElement>(null);
+
+  const { width, height } = useSize(chartWrapperRef.current || document.body);
 
   // resize
   const resizeHandler = useCallback(() => {
@@ -91,21 +92,6 @@ const ChartCore: React.FC<ChartProps> = ({
     [resizeHandler],
   );
 
-  // 移除对 chartWrapper.resize 事件的监听
-  const removeResizeHandler = useCallback(() => {
-    try {
-      observerRef.current?.disconnect();
-    } catch { }
-    observerRef.current = undefined;
-  }, []);
-
-  // 监听 chartWrapper 的 resize 事件
-  const addResizeHandler = useCallback(() => {
-    removeResizeHandler();
-    observerRef.current = new ResizeObserver(debounceResizeHandler);
-    observerRef.current.observe(chartWrapperRef.current as Element);
-  }, [debounceResizeHandler, removeResizeHandler]);
-
   // 初始化图表
   const initChart = useCallback(() => {
     $chart.current = echarts.init(
@@ -114,10 +100,7 @@ const ChartCore: React.FC<ChartProps> = ({
     );
     $chart.current.setOption(option);
     isFunction(onChartReady) && onChartReady($chart.current);
-
-    // 绑定 resize 事件
-    if (!observerRef.current) addResizeHandler();
-  }, [addResizeHandler, onChartReady, option, theme]);
+  }, [onChartReady, option, theme]);
 
   // 更新图表数据
   const updateChart = useCallback(() => {
@@ -129,12 +112,15 @@ const ChartCore: React.FC<ChartProps> = ({
   // 销毁图表
   const dispose = useCallback(() => {
     try {
-      removeResizeHandler();
       $chart.current?.dispose();
     } catch (e) {
       console.warn('Charts Dispose Error: ', e);
     }
-  }, [removeResizeHandler]);
+  }, []);
+
+  useLayoutEffect(() => {
+    debounceResizeHandler();
+  }, [width, height]);
 
   useLayoutEffect(() => {
     if (empty) {
