@@ -1,5 +1,5 @@
 import React, { useRef, useLayoutEffect, useCallback, useMemo } from 'react';
-import ResizeObserver from 'resize-observer-polyfill';
+import { ResizeObserver } from '@juggle/resize-observer';
 import debounce from 'lodash-es/debounce';
 import isFunction from 'lodash-es/isFunction';
 import * as echarts from 'echarts/core';
@@ -94,7 +94,7 @@ const ChartCore: React.FC<ChartProps> = ({
   // 移除对 chartWrapper.resize 事件的监听
   const removeResizeHandler = useCallback(() => {
     try {
-      observerRef.current?.unobserve(chartWrapperRef.current as Element);
+      observerRef.current?.disconnect();
     } catch { }
     observerRef.current = undefined;
   }, []);
@@ -144,6 +144,8 @@ const ChartCore: React.FC<ChartProps> = ({
     } else {
       initChart();
     }
+    // 组件卸载时 销毁图表
+    return dispose;
   }, [empty, dispose, initChart, updateChart]);
 
   const emptyComponent = useMemo(() => isFunction(renderEmpty) ? renderEmpty() : <Empty />, []);
@@ -155,7 +157,7 @@ const ChartCore: React.FC<ChartProps> = ({
       style={style}
     >
       {!empty ? (
-        <div className={renderStyle([charCanvas])} ref={chartRef}></div>
+        <div className={renderStyle(charCanvas)} ref={chartRef}></div>
       ) : (
         emptyComponent
       )}

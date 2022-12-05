@@ -1,6 +1,7 @@
 {
   "name": "react-echarts-core",
   "version": "0.2.0",
+  "description": "A React component that can render ECharts charts quickly and easily",
   "type": "module",
   "author": "wisewrong",
   "license": "MIT",
@@ -30,14 +31,15 @@
     "react",
     "echarts",
     "react-component",
-    "react-echarts"
+    "react-echarts",
+    "react-echarts-core"
   ],
   "bugs": {
     "url": "https://github.com/wisewrong/react-echarts-core/issues"
   },
   "dependencies": {
-    "lodash-es": "^4.17.21",
-    "resize-observer-polyfill": "^1.5.1"
+    "@juggle/resize-observer": "^3.4.0",
+    "lodash-es": "^4.17.21"
   },
   "peerDependencies": {
     "echarts": ">=5.0.1",
