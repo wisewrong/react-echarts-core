@@ -1,4 +1,4 @@
-import React, { useRef, useLayoutEffect, useCallback, useMemo } from 'react';
+import React, { useRef, useLayoutEffect, useCallback, useMemo, useEffect } from 'react';
 import debounce from 'lodash-es/debounce';
 import isFunction from 'lodash-es/isFunction';
 import * as echarts from 'echarts/core';
@@ -87,17 +87,11 @@ const ChartCore: React.FC<ChartProps> = ({
     }
   }, []);
 
-  const debounceResizeHandler = useMemo(
-    () => debounce(resizeHandler, 160),
-    [resizeHandler],
-  );
+  const debounceResizeHandler = useMemo(() => debounce(resizeHandler, 160), [resizeHandler]);
 
   // 初始化图表
   const initChart = useCallback(() => {
-    $chart.current = echarts.init(
-      chartRef.current as HTMLElement,
-      theme || THEME_NAME,
-    );
+    $chart.current = echarts.init(chartRef.current as HTMLElement, theme || THEME_NAME);
     $chart.current.setOption(option);
     isFunction(onChartReady) && onChartReady($chart.current);
   }, [onChartReady, option, theme]);
@@ -130,11 +124,12 @@ const ChartCore: React.FC<ChartProps> = ({
     } else {
       initChart();
     }
-    // 组件卸载时 销毁图表
-    return dispose;
   }, [empty, dispose, initChart, updateChart]);
 
-  const emptyComponent = useMemo(() => isFunction(renderEmpty) ? renderEmpty() : <Empty />, []);
+  // 组件卸载时 销毁图表
+  useEffect(() => dispose, [dispose]);
+
+  const emptyComponent = useMemo(() => (isFunction(renderEmpty) ? renderEmpty() : <Empty />), []);
 
   return (
     <div
@@ -142,11 +137,7 @@ const ChartCore: React.FC<ChartProps> = ({
       ref={chartWrapperRef}
       style={style}
     >
-      {!empty ? (
-        <div className={renderStyle(charCanvas)} ref={chartRef}></div>
-      ) : (
-        emptyComponent
-      )}
+      {!empty ? <div className={renderStyle(charCanvas)} ref={chartRef}></div> : emptyComponent}
     </div>
   );
 };

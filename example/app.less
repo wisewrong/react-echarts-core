@@ -1,0 +1,33 @@
+.widget {
+  display       : flex;
+  flex-direction: column;
+  height        : 360px !important;
+
+  &-title {
+    padding: 0 20px;
+  }
+
+  &-body {
+    flex: 1;
+  }
+}
+
+.row {
+  position     : relative;
+  box-sizing   : border-box;
+  display      : flex;
+  margin-bottom: 12px;
+}
+
+// 循环生成栅格布局
+.init-col(@n, @i: 1) when (@i =< @n) {
+  .col-@{i} {
+    box-sizing: border-box;
+    height    : 100%;
+    width     : (1 / 24 * @i * 100) * 1%;
+  }
+
+  .init-col(@n, (@i + 1));
+}
+
+.init-col(24);
