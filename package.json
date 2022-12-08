@@ -1,6 +1,6 @@
 {
   "name": "react-echarts-core",
-  "version": "0.2.0",
+  "version": "0.3.1",
   "description": "A React component that can render ECharts charts quickly and easily",
   "type": "module",
   "author": "wisewrong",

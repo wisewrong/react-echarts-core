@@ -1,6 +1,6 @@
 # React ECharts Core
 
-一个可以方便快捷渲染 ECharts 图表的 React 组件
+一个可以方便快捷渲染 ECharts v5 图表的 React 组件
 
 > React >= 16.9.0
 
@@ -30,7 +30,7 @@ yarn add react-echarts-core echarts
 
 ## 🚀 示例
 
-### 基本用法
+**基本用法**
 
 ```tsx
 import React from 'react';
@@ -67,8 +67,6 @@ const Demo = () => {
   );
 }
 ```
-
-### 更多图表
 
 **默认支持 *Pie*, *Line*, *Bar* 三种类型的图表，其他图表类型需要自行扩展**
 
@@ -132,7 +130,7 @@ const Demo = () => {
 };
 ```
 
-
+更多示例 👉 [https://github.com/wisewrong/react-echarts-core/tree/main/example/demo](https://github.com/wisewrong/react-echarts-core/tree/main/example/demo)
 
 ## API
 

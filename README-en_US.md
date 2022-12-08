@@ -1,6 +1,6 @@
 # React ECharts Core
 
-A React component that can render ECharts charts quickly and easily
+A React component that can render ECharts v5 charts quickly and easily
 
 > React >= 16.9.0
 
@@ -30,7 +30,7 @@ yarn add react-echarts-core echarts
 
 ## 🚀 Usage
 
-### Basic
+**Basic**
 
 ```tsx
 import React from 'react';
@@ -67,8 +67,6 @@ const Demo = () => {
   );
 }
 ```
-
-### More Charts
 
 **By default, *Pie*, *Line*, *Bar* are supported, and other charts need to be extended by yourself**
 
@@ -132,7 +130,7 @@ const Demo = () => {
 };
 ```
 
-
+More examples👉 [https://github.com/wisewrong/react-echarts-core/tree/main/example/demo](https://github.com/wisewrong/react-echarts-core/tree/main/example/demo)
 
 ## API
 
