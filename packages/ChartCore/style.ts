@@ -15,16 +15,3 @@ export const charCanvas: StyleItem = {
     minHeight: '80px',
   }
 }
-
-export const chartEmpty: StyleItem = {
-  className: 'react-chart-empty',
-  styles: {
-    ...charCanvas.styles,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontSize: '16px',
-    background: '#EEF3F7',
-    color: '#67717A',
-  }
-}

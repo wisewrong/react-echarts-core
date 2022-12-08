@@ -1,19 +1,13 @@
 import React, { useRef, useLayoutEffect, useCallback, useMemo, useEffect } from 'react';
 import debounce from 'lodash-es/debounce';
 import isFunction from 'lodash-es/isFunction';
-import * as echarts from 'echarts/core';
-import {
-  TooltipComponent,
-  GridComponent,
-  LegendComponent,
-  DataZoomComponent,
-} from 'echarts/components';
-import { PieChart, LineChart, BarChart } from 'echarts/charts';
+import { use, init } from 'echarts/core';
+import type { EChartsType } from 'echarts/core';
 import type { EChartsOption } from 'echarts';
-import { LabelLayout, UniversalTransition } from 'echarts/features';
+import { TooltipComponent,  GridComponent,  LegendComponent } from 'echarts/components';
+import { PieChart, LineChart, BarChart } from 'echarts/charts';
 import { CanvasRenderer } from 'echarts/renderers';
 import renderStyle from '../renderStyle';
-import Empty from './components/Empty';
 import useSize from './hooks/useSize';
 import { charCanvas, chartWapper } from './style';
 import { THEME_NAME } from './theme';
@@ -29,25 +23,18 @@ export interface ChartProps {
   theme?: string | Record<string, any>;
   /** 更新数据时 是否清除画布 */
   clear?: boolean;
-  /** 是否为空 */
-  empty?: boolean;
   /** 图表初始化成功后的回调, 提供 echarts 实例 */
-  onChartReady?: (ref: echarts.ECharts) => void;
-  /** 自定义空状态 */
-  renderEmpty?: () => React.ReactNode;
+  onChartReady?: (ref: EChartsType) => void;
 }
 
-echarts.use([
+use([
   LineChart,
   PieChart,
   BarChart,
   TooltipComponent,
   LegendComponent,
-  DataZoomComponent,
   GridComponent,
   CanvasRenderer,
-  LabelLayout,
-  UniversalTransition,
 ]);
 
 /**
@@ -65,14 +52,12 @@ const ChartCore: React.FC<ChartProps> = ({
   className,
   style,
   option,
-  empty,
   clear,
   theme,
   onChartReady,
-  renderEmpty,
 }) => {
   // echarts 实例
-  const $chart = useRef<echarts.ECharts>();
+  const $chart = useRef<EChartsType>();
   const chartRef = useRef<HTMLDivElement>(null);
   const chartWrapperRef = useRef<HTMLDivElement>(null);
 
@@ -91,7 +76,7 @@ const ChartCore: React.FC<ChartProps> = ({
 
   // 初始化图表
   const initChart = useCallback(() => {
-    $chart.current = echarts.init(chartRef.current as HTMLElement, theme || THEME_NAME);
+    $chart.current = init(chartRef.current as HTMLElement, theme || THEME_NAME);
     $chart.current.setOption(option);
     isFunction(onChartReady) && onChartReady($chart.current);
   }, [onChartReady, option, theme]);
@@ -117,19 +102,15 @@ const ChartCore: React.FC<ChartProps> = ({
   }, [width, height]);
 
   useLayoutEffect(() => {
-    if (empty) {
-      dispose();
-    } else if ($chart.current) {
-      updateChart();
-    } else {
+    if (!$chart.current) {
       initChart();
+    } else {
+      updateChart();
     }
-  }, [empty, dispose, initChart, updateChart]);
+  }, [dispose, initChart, updateChart]);
 
   // 组件卸载时 销毁图表
   useEffect(() => dispose, [dispose]);
-
-  const emptyComponent = useMemo(() => (isFunction(renderEmpty) ? renderEmpty() : <Empty />), []);
 
   return (
     <div
@@ -137,7 +118,7 @@ const ChartCore: React.FC<ChartProps> = ({
       ref={chartWrapperRef}
       style={style}
     >
-      {!empty ? <div className={renderStyle(charCanvas)} ref={chartRef}></div> : emptyComponent}
+      <div className={renderStyle(charCanvas)} ref={chartRef} />
     </div>
   );
 };

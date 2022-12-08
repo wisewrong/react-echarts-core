@@ -32,6 +32,7 @@ export default defineConfig({
       name: 'react-echarts-core',
       fileName: 'react-echarts-core',
     },
+    minify: 'esbuild',
     rollupOptions: {
       // 确保外部化处理那些你不想打包进库的依赖
       external: ['react', 'react-dom', 'echarts'],
@@ -40,6 +41,7 @@ export default defineConfig({
         globals: {
           react: 'react',
           'react-dom': 'react-dom',
+          echarts: 'echarts',
         },
       },
     },

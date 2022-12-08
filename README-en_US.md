@@ -10,13 +10,13 @@ A React component that can render ECharts charts quickly and easily
 
 <br />
 
-## ✨ Features
+## 🎁 Features
 
 - Render a chart by `EChartsOption`, no other configuration is required
 - Auto resize
 - Written in TypeScript with predictable static types
 
-## 📦 Install
+## 🛠 Install
 
 ```
 npm install react-echarts-core echarts  --save
@@ -28,7 +28,9 @@ or
 yarn add react-echarts-core echarts
 ```
 
-## 🔨 Usage
+## 🚀 Usage
+
+### Basic
 
 ```tsx
 import React from 'react';
@@ -66,6 +68,72 @@ const Demo = () => {
 }
 ```
 
+### More Charts
+
+**By default, *Pie*, *Line*, *Bar* are supported, and other charts need to be extended by yourself**
+
+> The built-in imported echarts components are:
+>
+> `import { TooltipComponent,  GridComponent,  LegendComponent } from 'echarts/components';`
+>
+> `import { PieChart, LineChart, BarChart } from 'echarts/charts';`
+>
+> `import { CanvasRenderer } from 'echarts/renderers';`
+
+```tsx
+import React from 'react';
+import * as echarts from 'echarts/core';
+import { ScatterChart } from 'echarts/charts';
+import ChartCore from 'react-echarts-core';
+import type { EChartsOption } from 'react-echarts-core';
+
+echarts.use([ScatterChart]);
+
+const Demo = () => {
+  // https://echarts.apache.org/examples/en/editor.html?c=scatter-simple
+  const option: EChartsOption = {
+    xAxis: {},
+    yAxis: {},
+    series: [
+      {
+        symbolSize: 20,
+        data: [
+          [10.0, 8.04],
+          [8.07, 6.95],
+          [13.0, 7.58],
+          [9.05, 8.81],
+          [11.0, 8.33],
+          [14.0, 7.66],
+          [13.4, 6.81],
+          [10.0, 6.33],
+          [14.0, 8.96],
+          [12.5, 6.82],
+          [9.15, 7.2],
+          [11.5, 7.2],
+          [3.03, 4.23],
+          [12.2, 7.83],
+          [2.02, 4.47],
+          [1.05, 3.33],
+          [4.05, 4.96],
+          [6.03, 7.24],
+          [12.0, 6.26],
+          [12.0, 8.84],
+          [7.08, 5.82],
+          [5.02, 5.68],
+        ],
+        type: 'scatter',
+      },
+    ],
+  };
+
+  return (
+    <ChartCore option={option} style={{ height: 300, width: 500 }} />
+  );
+};
+```
+
+
+
 ## API
 
 **ChartProps**
@@ -77,6 +145,4 @@ const Demo = () => {
 | option       | [ECharts Option](https://echarts.apache.org/en/option.html#title) | EChartsCoreOption              | -                   |
 | theme        | [ECharts Theme](https://echarts.apache.org/en/api.html#echarts.init) | string \| Record<string, any>  | 'charts-core-theme' |
 | clear        | [Whether to clear the canvas when chart update](https://echarts.apache.org/en/api.html#echartsInstance.clear) | boolean                        | false               |
-| empty        | Whether to display empty state                               | boolean                        | false               |
-| renderEmpty  | Render the custom empty component when `empty` is `true`     | () => React.ReactNode          | Render the built-in `Empty` component   |
-| onChartReady | The callback after the chart is initialized successfully, providing echarts instance | (ref: echarts.ECharts) => void | -                   |
+| onChartReady | The callback after the chart is initialized successfully, providing echarts instance | (ref: EChartsType) => void | -                   |
