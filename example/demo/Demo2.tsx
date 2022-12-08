@@ -1,11 +1,13 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { ScatterChart } from 'echarts/charts';
 import * as echarts from 'echarts/core';
+import { TooltipComponent, GridComponent, LegendComponent } from 'echarts/components';
+import { CanvasRenderer } from 'echarts/renderers';
 import ChartCore from '../../packages';
 import type { EChartsOption } from '../../packages';
 import { random } from './utils';
 
-echarts.use([ScatterChart]);
+echarts.use([TooltipComponent, GridComponent, LegendComponent, ScatterChart, CanvasRenderer]);
 
 function getRandomSeries(): number[][] {
   return Array.from(new Array(20), () => {

@@ -1,9 +1,15 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import * as echarts from 'echarts/core';
+import { TooltipComponent, GridComponent, LegendComponent } from 'echarts/components';
+import { BarChart } from 'echarts/charts';
+import { CanvasRenderer } from 'echarts/renderers';
 import ChartCore from '../../packages';
 import type { EChartsOption } from '../../packages';
 import Empty from '../components/Empty';
 import Loading from '../components/Loading';
 import { random } from './utils';
+
+echarts.use([TooltipComponent, GridComponent, LegendComponent, BarChart, CanvasRenderer]);
 
 function getRandomData(): number[] {
   return Array.from(new Array(7), () => random(10, 100));

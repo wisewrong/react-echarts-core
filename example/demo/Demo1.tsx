@@ -1,6 +1,12 @@
 import React from 'react';
+import * as echarts from 'echarts/core';
+import { TooltipComponent, GridComponent, LegendComponent } from 'echarts/components';
+import { LineChart } from 'echarts/charts';
+import { CanvasRenderer } from 'echarts/renderers';
 import ChartCore from '../../packages';
 import type { EChartsOption } from '../../packages';
+
+echarts.use([TooltipComponent, GridComponent, LegendComponent, LineChart, CanvasRenderer]);
 
 /** 基础用法 */
 const Demo1: React.FC = () => {

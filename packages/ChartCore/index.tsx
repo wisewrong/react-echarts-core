@@ -1,12 +1,9 @@
 import React, { useRef, useLayoutEffect, useCallback, useMemo, useEffect } from 'react';
 import debounce from 'lodash-es/debounce';
 import isFunction from 'lodash-es/isFunction';
-import { use, init } from 'echarts/core';
+import { init } from 'echarts/core';
 import type { EChartsType } from 'echarts/core';
 import type { EChartsOption } from 'echarts';
-import { TooltipComponent,  GridComponent,  LegendComponent } from 'echarts/components';
-import { PieChart, LineChart, BarChart } from 'echarts/charts';
-import { CanvasRenderer } from 'echarts/renderers';
 import renderStyle from '../renderStyle';
 import useSize from './hooks/useSize';
 import { charCanvas, chartWapper } from './style';
@@ -28,25 +25,16 @@ export interface ChartProps {
   onChartReady?: (ref: EChartsType) => void;
 }
 
-use([
-  LineChart,
-  PieChart,
-  BarChart,
-  TooltipComponent,
-  LegendComponent,
-  GridComponent,
-  CanvasRenderer,
-]);
-
 /**
- * 基础图表组件, 基于 ECharts 封装
- * - 实现了 resize 功能
- * - 默认支持 Pie, Line, Bar 三种类型的图表, 其他图表类型需要自行扩展
- * > eg:
+ * 基础图表组件, 基于 ECharts 封装, 实现了 auto resize
+ * > ECharts v5 用法
  * > ```js
- * > import { ScatterChart } from 'echarts/charts';
  * > import * as echarts from 'echarts/core';
- * > echarts.use([ScatterChart]);
+ * > import { TooltipComponent, GridComponent, LegendComponent } from 'echarts/components';
+ * > import { LineChart } from 'echarts/charts';
+ * > import { CanvasRenderer } from 'echarts/renderers';
+ * > echarts.use([TooltipComponent, GridComponent, LegendComponent, LineChart, CanvasRenderer]);
+ * > <ChartCore option={option} />;
  * > ```
  */
 const ChartCore: React.FC<ChartProps> = ({

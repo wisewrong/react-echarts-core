@@ -1,6 +1,12 @@
 import React, { useCallback, useRef, useState } from 'react';
+import * as echarts from 'echarts/core';
+import { TooltipComponent, GridComponent, LegendComponent } from 'echarts/components';
+import { PieChart } from 'echarts/charts';
+import { CanvasRenderer } from 'echarts/renderers';
 import ChartCore from '../../packages';
 import type { EChartsOption, EChartsType } from '../../packages';
+
+echarts.use([TooltipComponent, GridComponent, LegendComponent, PieChart, CanvasRenderer]);
 
 /** 事件处理 */
 const Demo4: React.FC = () => {
