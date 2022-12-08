@@ -13,6 +13,7 @@ import { charCanvas, chartWapper } from './style';
 import { THEME_NAME } from './theme';
 
 export type { EChartsOption } from 'echarts';
+export type { EChartsType } from 'echarts/core';
 
 export interface ChartProps {
   className?: string;

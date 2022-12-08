@@ -15,6 +15,7 @@ function getRandomSeries(): number[][] {
 
 const category = ['React', 'Vue'];
 
+/** 扩展散点图, 并支持 clear 清除画布 */
 const Demo2: React.FC<{ clear?: boolean }> = ({ clear }) => {
   const [series, setSeries] = useState<EChartsOption['series']>();
 

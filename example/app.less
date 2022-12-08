@@ -1,4 +1,5 @@
 .widget {
+  position      : relative;
   display       : flex;
   flex-direction: column;
   height        : 360px !important;
@@ -10,6 +11,47 @@
   &-body {
     flex: 1;
   }
+}
+
+.empty {
+  background: #f0f2f5;
+  text-align: center;
+  height    : 100%;
+  width     : 100%;
+
+  &-inner {
+    display  : block;
+    position : relative;
+    top      : 50%;
+    font-size: 16px;
+    transform: translateY(-8px);
+  }
+}
+
+.loading {
+  height  : 100%;
+  width   : 100%;
+  position: relative;
+
+  &.active {
+    .loading-mask {
+      display        : flex;
+      justify-content: center;
+      align-items    : center;
+      position       : absolute;
+      top            : 0;
+      left           : 0;
+      right          : 0;
+      bottom         : 0;
+      background     : rgba(0, 0, 0, 0.1);
+
+      &::after {
+        content: 'loading...';
+      }
+    }
+  }
+
+
 }
 
 .row {
@@ -31,3 +73,10 @@
 }
 
 .init-col(24);
+
+.demo4-tips {
+  position: absolute;
+  top     : 0;
+  right   : 66px;
+  color   : #888;
+}

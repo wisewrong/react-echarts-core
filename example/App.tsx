@@ -1,7 +1,9 @@
 import React from 'react';
-import Widget from './demo/Widget';
+import Widget from './components/Widget';
 import Demo1 from './demo/Demo1';
 import Demo2 from './demo/Demo2';
+import Demo3 from './demo/Demo3';
+import Demo4 from './demo/Demo4';
 import './app.less';
 
 function App() {
@@ -16,6 +18,14 @@ function App() {
         </Widget>
         <Widget className="col-12" title="更新数据时清除画布">
           <Demo2 clear />
+        </Widget>
+      </div>
+      <div className="row">
+        <Widget className="col-12" title="自定义 loading 或空状态">
+          <Demo3 />
+        </Widget>
+        <Widget className="col-12" title="事件处理">
+          <Demo4 />
         </Widget>
       </div>
     </div>

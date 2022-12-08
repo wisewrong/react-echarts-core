@@ -2,6 +2,7 @@ import React from 'react';
 import ChartCore from '../../packages';
 import type { EChartsOption } from '../../packages';
 
+/** 基础用法 */
 const Demo1: React.FC = () => {
   const option: EChartsOption = {
     tooltip: {
