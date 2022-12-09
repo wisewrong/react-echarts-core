@@ -65,7 +65,7 @@ const Demo4: React.FC = () => {
   const onChartReady = useCallback((ref: EChartsType) => {
     chartInstance.current = ref;
     bind(ref);
-  }, []);
+  }, [bind]);
 
   return (
     <>

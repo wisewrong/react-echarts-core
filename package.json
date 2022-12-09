@@ -1,6 +1,6 @@
 {
   "name": "react-echarts-core",
-  "version": "0.5.0",
+  "version": "1.0.0",
   "description": "A React component that can render ECharts charts quickly and easily",
   "type": "module",
   "author": "wisewrong",
@@ -47,14 +47,8 @@
     "react-dom": ">=16.9.0"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.20.2",
-    "@babel/preset-react": "^7.18.6",
-    "@babel/preset-typescript": "^7.18.6",
-    "@rollup/plugin-babel": "^6.0.3",
     "@rollup/plugin-commonjs": "^23.0.4",
-    "@rollup/plugin-json": "^5.0.2",
     "@rollup/plugin-node-resolve": "^15.0.1",
-    "@rollup/plugin-typescript": "^8.5.0",
     "@types/lodash-es": "^4.17.6",
     "@types/node": "^18.7.15",
     "@types/react": "^17.0.0",
@@ -75,7 +69,6 @@
     "prettier": "^2.7.1",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
-    "rollup-plugin-dts": "^5.0.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.34.1",

@@ -18,6 +18,8 @@
 
 ## 🛠 安装
 
+需要同步安装 echarts
+
 ```
 npm install react-echarts-core echarts  --save
 ```
@@ -68,15 +70,7 @@ const Demo = () => {
 }
 ```
 
-**默认支持 *Pie*, *Line*, *Bar* 三种类型的图表，其他图表类型需要使用内置 `use` 函数注册**
-
-> 内置引入的 echarts 组件有:
->
-> ```
-> import { TooltipComponent, GridComponent, LegendComponent } from 'echarts/components';
-> import { PieChart, LineChart, BarChart } from 'echarts/charts';
-> import { CanvasRenderer } from 'echarts/renderers';
-> ```
+**默认支持 *Pie*, *Line*, *Bar* 三种类型的图表，其他图表类型需要使用内置 `use` 函数注册**，详见 [use](#use)
 
 ```tsx
 import React from 'react';
@@ -135,7 +129,7 @@ const Demo = () => {
 
 ## API
 
-**ChartProps**
+#### ChartProps
 
 | 属性名       | 说明                                                         | 类型                           | 默认值              |
 | ------------ | ------------------------------------------------------------ | ------------------------------ | ------------------- |
@@ -145,4 +139,49 @@ const Demo = () => {
 | theme        | [ECharts 图表主题](https://echarts.apache.org/zh/api.html#echarts.init) | string \| Record<string, any>  | 'charts-core-theme' |
 | clear        | [更新图表时是否清除画布](https://echarts.apache.org/zh/api.html#echartsInstance.clear) | boolean                        | false               |
 | onChartReady | 图表初始化成功后的回调, 提供 echarts 实例                    | (ref: EChartsType) => void | -                   |
+
+---
+
+#### use
+
+```ts
+import { use } from 'react-echarts-core';
+```
+
+React ECharts Core 内置了以下 echarts 模块
+
+```ts
+import { TooltipComponent, GridComponent, LegendComponent } from 'echarts/components';
+import { PieChart, LineChart, BarChart } from 'echarts/charts';
+import { CanvasRenderer } from 'echarts/renderers';
+```
+
+如果需要使用更多 echarts 模块，或者切换为 `SVGRenderer`，就需要用到 `use` 函数
+
+```ts
+type ChartsComponents = (EchartsChart | EchartsComponent | EchartsFeature)[];
+type EchartsRender = typeof CanvasRenderer | typeof SVGRenderer;
+type Use = (components?: ChartsComponents, render?: EchartsRender) => void;
+```
+
+ *use* 的作用和 `echarts.use` 一样，用于注册 echarts 模块。但 *use* 可接收两个参数：*components*, *render*。
+
+- components: 由 `'echarts/features'`, `'echarts/components'`, `'echarts/charts'` 组成的数组
+- render: `CanvasRenderer `或者 `SVGRenderer`，默认为 `CanvasRenderer`
+
+**示例：**
+
+```tsx
+import React from 'react';
+import { ScatterChart } from 'echarts/charts';
+import { DataZoomComponent } from 'echarts/components';
+import { SVGRenderer } from 'echarts/renderers';
+import ChartCore, { use } from 'react-echarts-core';
+
+use([ScatterChart, DataZoomComponent], SVGRenderer);
+
+const Demo: React.FC = () => {
+  // ...
+}
+```
 

@@ -18,6 +18,8 @@ A React component that can render ECharts v5 charts quickly and easily
 
 ## 🛠 Install
 
+Need to install echarts additionally
+
 ```
 npm install react-echarts-core echarts  --save
 ```
@@ -68,15 +70,7 @@ const Demo = () => {
 }
 ```
 
-**By default, *Pie*, *Line*, *Bar* are supported, and other charts need to be registered using  the built-in `use` function**
-
-> The built-in imported echarts components are:
->
-> ```
-> import { TooltipComponent, GridComponent, LegendComponent } from 'echarts/components';
-> import { PieChart, LineChart, BarChart } from 'echarts/charts';
-> import { CanvasRenderer } from 'echarts/renderers';
-> ```
+**By default, *Pie*, *Line*, *Bar* are supported, and other charts need to be registered using  the built-in `use` function**. See [use](#use) for details.
 
 ```tsx
 import React from 'react';
@@ -145,3 +139,49 @@ More examples👉 [https://github.com/wisewrong/react-echarts-core/tree/main/exa
 | theme        | [ECharts Theme](https://echarts.apache.org/en/api.html#echarts.init) | string \| Record<string, any>  | 'charts-core-theme' |
 | clear        | [Whether to clear the canvas when chart update](https://echarts.apache.org/en/api.html#echartsInstance.clear) | boolean                        | false               |
 | onChartReady | The callback after the chart is initialized successfully, providing echarts instance | (ref: EChartsType) => void | -                   |
+
+---
+
+#### use
+
+```ts
+import { use } from 'react-echarts-core';
+```
+
+The following echarts modules are built into React ECharts Core
+
+```ts
+import { TooltipComponent, GridComponent, LegendComponent } from 'echarts/components';
+import { PieChart, LineChart, BarChart } from 'echarts/charts';
+import { CanvasRenderer } from 'echarts/renderers';
+```
+
+If you need to use more echarts modules, or switch to `SVGRenderer`, you need to use `use` function
+
+```ts
+type ChartsComponents = (EchartsChart | EchartsComponent | EchartsFeature)[];
+type EchartsRender = typeof CanvasRenderer | typeof SVGRenderer;
+type Use = (components?: ChartsComponents, render?: EchartsRender) => void;
+```
+
+ *use* is the same as `echarts.use`, used to register echarts module. But *use* accepts two parameters: *components*, *render*.
+
+- components: the array of `'echarts/features'`, `'echarts/components'`, `'echarts/charts'` 
+- render: `CanvasRenderer ` or `SVGRenderer`，default  `CanvasRenderer`
+
+**Example：**
+
+```tsx
+import React from 'react';
+import { ScatterChart } from 'echarts/charts';
+import { DataZoomComponent } from 'echarts/components';
+import { SVGRenderer } from 'echarts/renderers';
+import ChartCore, { use } from 'react-echarts-core';
+
+use([ScatterChart, DataZoomComponent], SVGRenderer);
+
+const Demo: React.FC = () => {
+  // ...
+}
+```
+
