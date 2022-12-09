@@ -64,7 +64,7 @@ const Demo2: React.FC<{ clear?: boolean }> = ({ clear }) => {
     setInterval(updateSeries, 2000);
   }, [updateSeries]);
 
-  return <ChartCore option={option} clear={clear} />;
+  return <ChartCore echarts={echarts} option={option} clear={clear} />;
 };
 
 export default Demo2;

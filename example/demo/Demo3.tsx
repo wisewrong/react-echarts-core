@@ -60,7 +60,11 @@ const Demo3: React.FC = () => {
   }, [updateData]);
 
   // 需要给 <Loading /> 设置 height: 100%; 让 ChartCore 继承父容器的高度
-  return <Loading loading={loading}>{empty ? <Empty /> : <ChartCore option={option} />}</Loading>;
+  return (
+    <Loading loading={loading}>
+      {empty ? <Empty /> : <ChartCore echarts={echarts} option={option} />}
+    </Loading>
+  );
 };
 
 export default Demo3;

@@ -76,7 +76,7 @@ const Demo4: React.FC = () => {
   return (
     <>
       {tips && <div className="demo4-tips">{tips}</div>}
-      <ChartCore option={option} onChartReady={onChartReady} />
+      <ChartCore echarts={echarts} option={option} onChartReady={onChartReady} />
     </>
   );
 };

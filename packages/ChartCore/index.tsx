@@ -1,7 +1,6 @@
 import React, { useRef, useLayoutEffect, useCallback, useMemo, useEffect } from 'react';
 import debounce from 'lodash-es/debounce';
 import isFunction from 'lodash-es/isFunction';
-import { init } from 'echarts/core';
 import type { EChartsType } from 'echarts/core';
 import type { EChartsOption } from 'echarts';
 import renderStyle from '../renderStyle';
@@ -13,6 +12,7 @@ export type { EChartsOption } from 'echarts';
 export type { EChartsType } from 'echarts/core';
 
 export interface ChartProps {
+  echarts: any;
   className?: string;
   style?: React.CSSProperties;
   /**  echarts 图表配置 */
@@ -38,6 +38,7 @@ export interface ChartProps {
  * > ```
  */
 const ChartCore: React.FC<ChartProps> = ({
+  echarts,
   className,
   style,
   option,
@@ -65,7 +66,10 @@ const ChartCore: React.FC<ChartProps> = ({
 
   // 初始化图表
   const initChart = useCallback(() => {
-    $chart.current = init(chartRef.current as HTMLElement, theme || THEME_NAME);
+    $chart.current = echarts.init(
+      chartRef.current as HTMLElement,
+      theme || THEME_NAME,
+    ) as EChartsType;
     $chart.current.setOption(option);
     isFunction(onChartReady) && onChartReady($chart.current);
   }, [onChartReady, option, theme]);

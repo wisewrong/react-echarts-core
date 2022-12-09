@@ -98,7 +98,7 @@ const Demo1: React.FC = () => {
       },
     ],
   };
-  return <ChartCore option={option} style={{ height: 300, marginBottom: 20 }} />;
+  return <ChartCore echarts={echarts} option={option} style={{ height: 300, marginBottom: 20 }} />;
 };
 
 export default Demo1;
