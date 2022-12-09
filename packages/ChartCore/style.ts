@@ -1,11 +1,11 @@
-import type { StyleItem } from '../types';
+import type { StyleItem } from '../renderStyle';
 
 export const chartWapper: StyleItem = {
   className: 'react-chart-wapper',
   styles: {
     height: '100%',
-  }
-}
+  },
+};
 
 export const charCanvas: StyleItem = {
   className: 'react-chart-canvas',
@@ -13,5 +13,5 @@ export const charCanvas: StyleItem = {
     width: '100%',
     height: '100%',
     minHeight: '80px',
-  }
-}
+  },
+};

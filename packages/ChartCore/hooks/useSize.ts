@@ -1,6 +1,7 @@
 import { useLayoutEffect, useState } from "react";
 import { ResizeObserver } from '@juggle/resize-observer';
-import { Size } from '../../types';
+
+export type Size = { width: number; height: number };
 
 /**
  * 监听 DOM 节点尺寸变化
