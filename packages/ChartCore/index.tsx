@@ -1,29 +1,11 @@
 import React, { useRef, useLayoutEffect, useCallback, useMemo, useEffect } from 'react';
 import debounce from 'lodash-es/debounce';
 import isFunction from 'lodash-es/isFunction';
-import type { EChartsType } from 'echarts/core';
-import type { EChartsOption } from 'echarts';
 import renderStyle from '../renderStyle';
 import useSize from './hooks/useSize';
 import { charCanvas, chartWapper } from './style';
 import { THEME_NAME } from './theme';
-
-export type { EChartsOption } from 'echarts';
-export type { EChartsType } from 'echarts/core';
-
-export interface ChartProps {
-  echarts: any;
-  className?: string;
-  style?: React.CSSProperties;
-  /**  echarts 图表配置 */
-  option: EChartsOption;
-  /** echarts 主题配置 */
-  theme?: string | Record<string, any>;
-  /** 更新数据时 是否清除画布 */
-  clear?: boolean;
-  /** 图表初始化成功后的回调, 提供 echarts 实例 */
-  onChartReady?: (ref: EChartsType) => void;
-}
+import type { ChartProps, EChartsType } from '../types';
 
 /**
  * 基础图表组件, 基于 ECharts 封装, 实现了 auto resize
@@ -34,7 +16,7 @@ export interface ChartProps {
  * > import { LineChart } from 'echarts/charts';
  * > import { CanvasRenderer } from 'echarts/renderers';
  * > echarts.use([TooltipComponent, GridComponent, LegendComponent, LineChart, CanvasRenderer]);
- * > <ChartCore option={option} />;
+ * > <ChartCore option={option} echarts={echarts} />;
  * > ```
  */
 const ChartCore: React.FC<ChartProps> = ({

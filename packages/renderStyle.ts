@@ -1,10 +1,5 @@
-import type { CSSProperties } from 'react';
 import kebabCase from 'lodash-es/kebabCase';
-
-export interface StyleItem {
-  className: string,
-  styles: CSSProperties,
-}
+import type { CSSProperties, StyleItem } from './types';
 
 /** 生成 style 标签的 id 前缀 */
 export const STYLE_PREFIX = 'react-echarts-core';
@@ -13,8 +8,8 @@ export const STYLE_PREFIX = 'react-echarts-core';
 function getStyleText(className: string, style: CSSProperties): string {
   const cssText = Object.keys(style).reduce((accumulator, key) => {
     const cssKey = kebabCase(key);
-    const cssValue = String(style[key as keyof CSSProperties]).replace("'", "");
-    return `${accumulator}${cssKey}:${cssValue};`
+    const cssValue = String(style[key as keyof CSSProperties]).replace("'", '');
+    return `${accumulator}${cssKey}:${cssValue};`;
   }, '');
 
   return `.${className} { ${cssText} }`;

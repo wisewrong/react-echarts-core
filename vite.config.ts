@@ -1,49 +1,10 @@
 import { defineConfig } from 'vite';
-import path from 'path';
 import react from '@vitejs/plugin-react';
-import typescript from '@rollup/plugin-typescript';
-
-function resolve(str: string) {
-  return path.resolve(__dirname, str);
-}
 
 // https://vitejs.dev/config/
 export default defineConfig({
   server: {
     port: 8000,
   },
-  plugins: [
-    react(),
-    typescript({
-      target: 'es5',
-      rootDir: resolve('packages/'),
-      declaration: true,
-      declarationDir: resolve('lib'),
-      exclude: resolve('node_modules/**'),
-      allowSyntheticDefaultImports: true,
-    }),
-  ],
-  build: {
-    outDir: 'lib',
-    // 防止 vite 将 rgba() 颜色转化为 #RGBA 十六进制
-    cssTarget: 'chrome61',
-    lib: {
-      entry: resolve('packages/index.ts'),
-      name: 'react-echarts-core',
-      fileName: 'react-echarts-core',
-    },
-    minify: 'esbuild',
-    rollupOptions: {
-      // 确保外部化处理那些你不想打包进库的依赖
-      external: ['react', 'react-dom', 'echarts'],
-      output: {
-        // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
-        globals: {
-          react: 'react',
-          'react-dom': 'react-dom',
-          echarts: 'echarts',
-        },
-      },
-    },
-  },
+  plugins: [react()],
 });

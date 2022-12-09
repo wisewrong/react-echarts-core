@@ -1,4 +1,4 @@
-import type { StyleItem } from '../renderStyle';
+import type { StyleItem } from '../types';
 
 export const chartWapper: StyleItem = {
   className: 'react-chart-wapper',
