@@ -1,12 +1,6 @@
 import React, { useCallback, useRef, useState } from 'react';
-import * as echarts from 'echarts/core';
-import { TooltipComponent, GridComponent, LegendComponent } from 'echarts/components';
-import { PieChart } from 'echarts/charts';
-import { CanvasRenderer } from 'echarts/renderers';
 import ChartCore from '../../packages';
 import type { EChartsOption, EChartsType } from '../../packages';
-
-echarts.use([TooltipComponent, GridComponent, LegendComponent, PieChart, CanvasRenderer]);
 
 /** 事件处理 */
 const Demo4: React.FC = () => {
@@ -76,7 +70,7 @@ const Demo4: React.FC = () => {
   return (
     <>
       {tips && <div className="demo4-tips">{tips}</div>}
-      <ChartCore echarts={echarts} option={option} onChartReady={onChartReady} />
+      <ChartCore option={option} onChartReady={onChartReady} />
     </>
   );
 };

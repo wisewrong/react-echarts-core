@@ -1,12 +1,6 @@
 import React from 'react';
-import * as echarts from 'echarts/core';
-import { TooltipComponent, GridComponent, LegendComponent } from 'echarts/components';
-import { LineChart } from 'echarts/charts';
-import { CanvasRenderer } from 'echarts/renderers';
 import ChartCore from '../../packages';
 import type { EChartsOption } from '../../packages';
-
-echarts.use([TooltipComponent, GridComponent, LegendComponent, LineChart, CanvasRenderer]);
 
 /** 基础用法 */
 const Demo1: React.FC = () => {
@@ -98,7 +92,7 @@ const Demo1: React.FC = () => {
       },
     ],
   };
-  return <ChartCore echarts={echarts} option={option} style={{ height: 300, marginBottom: 20 }} />;
+  return <ChartCore option={option} style={{ height: 300, marginBottom: 20 }} />;
 };
 
 export default Demo1;

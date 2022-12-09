@@ -2,7 +2,7 @@
 
 一个可以方便快捷渲染 ECharts v5 图表的 React 组件
 
-> React >= 16.9.0
+> React >= 16.8.0
 
 <br />
 
@@ -13,7 +13,7 @@
 ## 🎁 特性
 
 - 开箱即用，无需其他配置，传入 `EChartsOption` 即可渲染图表
-- 自适应容器宽度
+- 默认继承父容器宽高，并自适应容器尺寸
 - 使用 TypeScript 开发，提供完整的类型定义文件
 
 ## 🛠 安装
@@ -30,18 +30,12 @@ yarn add react-echarts-core echarts
 
 ## 🚀 示例
 
-对于 ECharts v5, 需要手动载入 `echarts/charts` 等基础组件
+**基本用法**
 
 ```tsx
 import React from 'react';
 import ChartCore from 'react-echarts-core';
 import type { EChartsOption } from 'react-echarts-core';
-import * as echarts from 'echarts/core';
-import { TooltipComponent, GridComponent, LegendComponent } from 'echarts/components';
-import { LineChart } from 'echarts/charts';
-import { CanvasRenderer } from 'echarts/renderers';
-
-echarts.use([TooltipComponent, GridComponent, LegendComponent, LineChart, CanvasRenderer]);
 
 const Demo = () => {
   // https://echarts.apache.org/examples/zh/editor.html?c=bar-background
@@ -74,7 +68,70 @@ const Demo = () => {
 }
 ```
 
+**默认支持 *Pie*, *Line*, *Bar* 三种类型的图表，其他图表类型需要使用内置 `use` 函数注册**
+
+> 内置引入的 echarts 组件有:
+>
+> ```
+> import { TooltipComponent, GridComponent, LegendComponent } from 'echarts/components';
+> import { PieChart, LineChart, BarChart } from 'echarts/charts';
+> import { CanvasRenderer } from 'echarts/renderers';
+> ```
+
+```tsx
+import React from 'react';
+import { ScatterChart } from 'echarts/charts';
+import ChartCore, { use } from 'react-echarts-core';
+import type { EChartsOption } from 'react-echarts-core';
+
+use([ScatterChart]);
+
+const Demo = () => {
+  // https://echarts.apache.org/examples/zh/editor.html?c=scatter-simple
+  const option: EChartsOption = {
+    xAxis: {},
+    yAxis: {},
+    series: [
+      {
+        symbolSize: 20,
+        data: [
+          [10.0, 8.04],
+          [8.07, 6.95],
+          [13.0, 7.58],
+          [9.05, 8.81],
+          [11.0, 8.33],
+          [14.0, 7.66],
+          [13.4, 6.81],
+          [10.0, 6.33],
+          [14.0, 8.96],
+          [12.5, 6.82],
+          [9.15, 7.2],
+          [11.5, 7.2],
+          [3.03, 4.23],
+          [12.2, 7.83],
+          [2.02, 4.47],
+          [1.05, 3.33],
+          [4.05, 4.96],
+          [6.03, 7.24],
+          [12.0, 6.26],
+          [12.0, 8.84],
+          [7.08, 5.82],
+          [5.02, 5.68],
+        ],
+        type: 'scatter',
+      },
+    ],
+  };
+
+  return (
+    <ChartCore option={option} style={{ height: 300, width: 500 }} />
+  );
+};
+```
+
 更多示例 👉 [https://github.com/wisewrong/react-echarts-core/tree/main/example/demo](https://github.com/wisewrong/react-echarts-core/tree/main/example/demo)
+
+<br />
 
 ## API
 
