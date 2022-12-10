@@ -1,10 +1,11 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { ScatterChart } from 'echarts/charts';
+import { SVGRenderer } from 'echarts/renderers';
 import ChartCore, { use } from '../../packages';
 import type { EChartsOption } from '../../packages';
 import { random } from './utils';
 
-use([ScatterChart]);
+use([ScatterChart], SVGRenderer);
 
 function getRandomSeries(): number[][] {
   return Array.from(new Array(20), () => {

@@ -30,15 +30,6 @@ use();
 
 /**
  * 基础图表组件, 基于 ECharts 封装, 实现了 auto resize
- * > ECharts v5 用法
- * > ```js
- * > import * as echarts from 'echarts/core';
- * > import { TooltipComponent, GridComponent, LegendComponent } from 'echarts/components';
- * > import { LineChart } from 'echarts/charts';
- * > import { CanvasRenderer } from 'echarts/renderers';
- * > echarts.use([TooltipComponent, GridComponent, LegendComponent, LineChart, CanvasRenderer]);
- * > <ChartCore option={option} echarts={echarts} />;
- * > ```
  */
 const ChartCore: React.FC<ChartProps> = ({
   className,
@@ -68,12 +59,15 @@ const ChartCore: React.FC<ChartProps> = ({
 
   // 初始化图表
   const initChart = useCallback(() => {
-    $chart.current = echarts.init(
-      chartRef.current as HTMLElement,
-      theme || THEME_NAME,
-    ) as EChartsType;
-    $chart.current.setOption(option);
-    isFunction(onChartReady) && onChartReady($chart.current);
+    // 异步执行初始化，以合并 use 函数中传入的 components
+    setTimeout(() => {
+      $chart.current = echarts.init(
+        chartRef.current as HTMLElement,
+        theme || THEME_NAME,
+      ) as EChartsType;
+      $chart.current.setOption(option);
+      isFunction(onChartReady) && onChartReady($chart.current);
+    })
   }, [onChartReady, option, theme]);
 
   // 更新图表数据
